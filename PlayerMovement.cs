@@ -12,6 +12,10 @@ public class PlayerMovement : MonoBehaviour {
     public float jumpForce = 3f;
     private bool jumpping = false;
 
+    //Crouch Variables
+    public Transform wrapperTransform;
+    private bool crouching = false;
+
     //Speed Variables
     public float baseMovementSpeed = 20f;
     private float movementSpeed;
@@ -28,7 +32,7 @@ public class PlayerMovement : MonoBehaviour {
 
     bool isGrounded()
     {
-        return Mathf.Abs(rb.velocity.y) <= 0.05 && transform.position.y <= 0;
+        return Mathf.Abs(rb.velocity.y) <= 0.05 && transform.position.y <= 0.9f;
     }
 
     IEnumerator resetRotation()
@@ -49,16 +53,16 @@ public class PlayerMovement : MonoBehaviour {
         if (reseting)
             return;
 
-        Debug.Log(transform.eulerAngles.x);
-
+        //Add force to move player forward
         rb.AddForce(direction.forward * movementSpeed * Time.fixedDeltaTime * 100);
 
+        //Remove force if moving too fast
         if (rb.velocity[2] > 20f)
         {
             //rb.AddForce(-direction.forward * movementSpeed * Time.fixedDeltaTime * 100);
         }
 
-        //If Player is on their side or front
+        //If Player is on their side or front reset their position
         if ( ( (Mathf.Abs(transform.eulerAngles.x) > 80 && Mathf.Abs(transform.eulerAngles.x) < 100) | 
                (Mathf.Abs(transform.eulerAngles.y) > 80 && Mathf.Abs(transform.eulerAngles.y) < 100) |
                (Mathf.Abs(transform.eulerAngles.x) > 250 && Mathf.Abs(transform.eulerAngles.x) < 280) |
@@ -69,7 +73,8 @@ public class PlayerMovement : MonoBehaviour {
             reseting = true;
         }
 
-        //Key Inputs
+        //Key Inputs----------------------
+        //Side movements
         if (Input.GetKey(KeyCode.A))
         {
             rb.AddForce(-direction.right * sideMovementSpeed * 10);
@@ -78,10 +83,23 @@ public class PlayerMovement : MonoBehaviour {
         {
             rb.AddForce(direction.right * sideMovementSpeed * 10);
         }
-
-        if (Input.GetKey(KeyCode.Space) && isGrounded())
+        //Jumpping
+        if (Input.GetKey(KeyCode.Space) && isGrounded() && !crouching)
         {
             rb.AddForce(direction.up * jumpForce * 100);
+        }
+        //Crouch
+        if (Input.GetKey(KeyCode.LeftControl) && isGrounded())
+        {
+            crouching = true;
+            Vector3 scale = wrapperTransform.localScale;
+            wrapperTransform.localScale = new Vector3(scale.x, 0.5f, scale.z);
+        }
+        else if (!Input.GetKey(KeyCode.LeftControl) && crouching)
+        {
+            crouching = false;
+            Vector3 scale = wrapperTransform.localScale;
+            wrapperTransform.localScale = new Vector3(scale.x, 1.1f, scale.z);
         }
 
         movementSpeed += 0.2f;
