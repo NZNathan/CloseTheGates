@@ -8,6 +8,9 @@ public class PlayerMovement : MonoBehaviour {
     private Rigidbody rb;
     public Transform direction;
 
+    //Control Variables
+    private bool running = false;
+    private bool reseting = false;
     //Jump Variables
     public float jumpForce = 3f;
     private bool jumpping = false;
@@ -20,7 +23,6 @@ public class PlayerMovement : MonoBehaviour {
     public float baseMovementSpeed = 20f;
     private float movementSpeed;
     public float sideMovementSpeed = 5f;
-    private bool reseting = false;
 
     // Use this for initialization
     void Start ()
@@ -28,6 +30,7 @@ public class PlayerMovement : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         movementSpeed = baseMovementSpeed;
 
+        running = true;
     }
 
     bool isGrounded()
@@ -43,14 +46,24 @@ public class PlayerMovement : MonoBehaviour {
 
         transform.localEulerAngles = new Vector3(0, 0, 0);
         rb.velocity = Vector3.zero;
-        //rb.angularVelocity = Vector3.zero;
+        //rb.angularVelocity = Vector3.zero; stops rotating velocity
+
+        transform.position = new Vector3(transform.position.x, ResetPosition.groundLevel, transform.position.z);
+
         reseting = false;
+    }
+
+    public void setRunning(bool running)
+    {
+        this.running = running;
+
+        rb.velocity = Vector3.zero;
     }
 
     // Update is called once per frame
     void FixedUpdate ()
     {
-        if (reseting)
+        if (reseting || !running)
             return;
 
         //Add force to move player forward
