@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class FinishLine : MonoBehaviour {
 
-	// Use this for initialization
-	void Start ()
+    public HighScorePanel highScorePanel;
+
+    // Use this for initialization
+    void Start ()
     {
 		
 	}
@@ -16,12 +18,13 @@ public class FinishLine : MonoBehaviour {
         if(other.tag == "Player")
         {
             other.GetComponent<PlayerMovement>().setRunning(false);
+            levelFinished();
         }
     }
 
-    // Update is called once per frame
-    void Update ()
+    void levelFinished()
     {
-		
-	}
+        highScorePanel.gameObject.SetActive(true);
+        highScorePanel.StartCoroutine("setupHighScorePanel", Timer.instance.getTime());
+    }
 }

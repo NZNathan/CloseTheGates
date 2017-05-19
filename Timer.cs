@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour {
 
+    public static Timer instance;
+
     //Timer Variables
     private Text timerText;
     private float time;
@@ -13,9 +15,14 @@ public class Timer : MonoBehaviour {
 	void Start ()
     {
         timerText = GetComponent<Text>();
-
+        instance = this;
     }
 	
+    public float getTime()
+    {
+        return time;
+    }
+
 	// Update is called once per frame
 	void Update ()
     {

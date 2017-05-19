@@ -8,13 +8,9 @@ public class ScoreRank : MonoBehaviour {
     public Text nameText;
     public Text timeText;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	public void setDetials(string name, float time)
+    {
+        nameText.text = name;
+        timeText.text = time.ToString("F2") + " seconds";
+    }
 }
