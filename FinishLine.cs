@@ -24,6 +24,7 @@ public class FinishLine : MonoBehaviour {
 
     void levelFinished()
     {
+        Timer.instance.setTimer(false);
         highScorePanel.gameObject.SetActive(true);
         highScorePanel.StartCoroutine("setupHighScorePanel", Timer.instance.getTime());
     }

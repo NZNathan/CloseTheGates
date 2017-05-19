@@ -14,15 +14,25 @@ public class HighScorePanel : MonoBehaviour {
     void Start()
     {
         scoreProfiles = new ScoreProfile[scoresUI.Length];
-
+        intializeRanks();
+        setUI();
+        this.gameObject.SetActive(false);
         //Got to intialize the scoreProfiles at game launch
+    }
+
+    void intializeRanks()
+    {
+        for (int i = 0; i < scoresUI.Length; i++)
+        {
+            scoreProfiles[i] = new ScoreProfile(scoresUI[i].nameText.text, scoresUI[i].getTime());
+        }
     }
 
     public IEnumerator setupHighScorePanel(float time)
     {
 
         int rank = checkIfHighScore(time);
-
+        Debug.Log(rank);
         if(rank != -1)
         {
             inputPanel.gameObject.SetActive(true);
@@ -36,7 +46,7 @@ public class HighScorePanel : MonoBehaviour {
             ScoreProfile newProfile = new ScoreProfile(name, time);
             insertNewRank(newProfile, rank);
 
-            reintializeScores();
+            setUI();
         }
     }
 
@@ -46,6 +56,7 @@ public class HighScorePanel : MonoBehaviour {
         int rank = 0;
         foreach(ScoreProfile scoreProfile in scoreProfiles)
         {
+            Debug.Log("Your time: " + time +" Highscore Time: " + scoreProfile.getTime());
             if(scoreProfile.getTime() > time)
             {
                 return rank;
@@ -61,13 +72,13 @@ public class HighScorePanel : MonoBehaviour {
     {
         for(int i = scoreProfiles.Length-1; i > rank; i--)
         {
-            scoreProfiles[i] = scoreProfiles[i+1];
+            scoreProfiles[i] = scoreProfiles[i-1];
         }
 
         scoreProfiles[rank] = newHighScore;
     }
 
-    void reintializeScores()
+    void setUI()
     {
         for (int i = 0; i < scoreProfiles.Length; i++)
         {

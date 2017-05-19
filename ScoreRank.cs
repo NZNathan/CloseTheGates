@@ -8,9 +8,24 @@ public class ScoreRank : MonoBehaviour {
     public Text nameText;
     public Text timeText;
 
-	public void setDetials(string name, float time)
+    private float time;
+
+    void Start()
+    {
+        Debug.Log(timeText.text.Substring(0, 2));
+        time =  float.Parse(timeText.text.Substring(0,2));
+    }
+
+    public void setDetials(string name, float time)
     {
         nameText.text = name;
         timeText.text = time.ToString("F2") + " seconds";
+
+        this.time = time;
+    }
+
+    public float getTime()
+    {
+        return time;
     }
 }
