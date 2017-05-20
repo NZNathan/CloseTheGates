@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class HighScorePanel : MonoBehaviour {
 
     public ScoreRank[] scoresUI;
+
     private ScoreProfile[] scoreProfiles;
 
     
@@ -13,9 +15,12 @@ public class HighScorePanel : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        scoreProfiles = new ScoreProfile[scoresUI.Length];
-        intializeRanks();
-        setUI();
+        //Load in highscores
+        scoreProfiles = (ScoreProfile[])GameData.load();
+
+        //scoreProfiles = new ScoreProfile[scoresUI.Length];
+        //intializeRanks();
+        updateUI();
         this.gameObject.SetActive(false);
         //Got to intialize the scoreProfiles at game launch
     }
@@ -46,7 +51,10 @@ public class HighScorePanel : MonoBehaviour {
             ScoreProfile newProfile = new ScoreProfile(name, time);
             insertNewRank(newProfile, rank);
 
-            setUI();
+            //Save the new highscore table
+            GameData.saveData<ScoreProfile>(scoreProfiles);
+
+            updateUI();
         }
     }
 
@@ -78,7 +86,7 @@ public class HighScorePanel : MonoBehaviour {
         scoreProfiles[rank] = newHighScore;
     }
 
-    void setUI()
+    void updateUI()
     {
         for (int i = 0; i < scoreProfiles.Length; i++)
         {
@@ -86,26 +94,4 @@ public class HighScorePanel : MonoBehaviour {
         }
     }
 
-    private class ScoreProfile
-    {
-        private string name;
-        private float time;
-
-        public ScoreProfile(string name, float time)
-        {
-            this.name = name;
-            this.time = time;
-        }
-
-        public string getName()
-        {
-            return name;
-        }
-
-        public float getTime()
-        {
-            return time;
-        }
-
-    }
 }

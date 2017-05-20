@@ -18,13 +18,18 @@ public class Timer : MonoBehaviour {
         timerText = GetComponent<Text>();
         instance = this;
     }
+
+    public void resetTimer()
+    {
+        time = 0;
+    }
 	
     public float getTime()
     {
         return time;
     }
 
-    public void setTimer(bool timer)
+    public void setTimerRunning(bool timer)
     {
         timerRunning = timer;
     }

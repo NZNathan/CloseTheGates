@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour {
     public Transform direction;
 
     //Control Variables
+    public static float groundLevel;
     private bool running = false;
     private bool reseting = false;
     //Jump Variables
@@ -30,6 +31,8 @@ public class PlayerMovement : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         movementSpeed = baseMovementSpeed;
 
+        groundLevel = transform.position.y;
+
         running = true;
     }
 
@@ -42,13 +45,19 @@ public class PlayerMovement : MonoBehaviour {
     {
         yield return new WaitForSeconds(0.8f);
 
+        transform.position = new Vector3(transform.position.x, groundLevel, transform.position.z);
+
+        resetVelocity();
+    }
+
+    //Reset velocity and movement speed
+    public void resetVelocity()
+    {
         movementSpeed = baseMovementSpeed;
 
         transform.localEulerAngles = new Vector3(0, 0, 0);
         rb.velocity = Vector3.zero;
-        //rb.angularVelocity = Vector3.zero; stops rotating velocity
-
-        transform.position = new Vector3(transform.position.x, ResetPosition.groundLevel, transform.position.z);
+        rb.angularVelocity = Vector3.zero;
 
         reseting = false;
     }
