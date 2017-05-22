@@ -12,7 +12,6 @@ public class ScoreRank : MonoBehaviour {
 
     void Start()
     {
-        Debug.Log(timeText.text.Substring(0, 2));
         time =  float.Parse(timeText.text.Substring(0,2));
     }
 

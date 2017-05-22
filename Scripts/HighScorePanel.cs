@@ -37,7 +37,6 @@ public class HighScorePanel : MonoBehaviour {
     {
 
         int rank = checkIfHighScore(time);
-        Debug.Log(rank);
         if(rank != -1)
         {
             inputPanel.gameObject.SetActive(true);
@@ -64,7 +63,6 @@ public class HighScorePanel : MonoBehaviour {
         int rank = 0;
         foreach(ScoreProfile scoreProfile in scoreProfiles)
         {
-            Debug.Log("Your time: " + time +" Highscore Time: " + scoreProfile.getTime());
             if(scoreProfile.getTime() > time)
             {
                 return rank;

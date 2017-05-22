@@ -20,7 +20,6 @@ public class GameData
                 {
                     BinaryFormatter formatter = new BinaryFormatter();
                     object array =  formatter.Deserialize(stream);
-                    Debug.Log(array);
                     return array;
                 }
             }
