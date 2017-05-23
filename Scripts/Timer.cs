@@ -8,7 +8,7 @@ public class Timer : MonoBehaviour {
     public static Timer instance;
 
     //Timer Variables
-    private bool timerRunning = true;
+    private bool timerRunning = false;
     private Text timerText;
     private float time;
 

@@ -15,7 +15,10 @@ public class RestartLevel : MonoBehaviour {
     {
         player = GameObject.Find("Player").GetComponent<PlayerMovement>();
         ghost = GameObject.Find("Ghost").GetComponent<Ghost>();
+
         startPos = player.transform.position;
+
+        ghost.gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -39,11 +42,12 @@ public class RestartLevel : MonoBehaviour {
         player.transform.position = startPos;
         player.StopAllCoroutines();
         player.resetVelocity();
-        
-        //Reset ghost 
+
+        //Reset ghost
+        ghost.gameObject.SetActive(true);
         ghost.transform.position = startPos;
         ghost.StopAllCoroutines();
-        ghost.resetVelocity();
+        ghost.intialise();
 
         player.setRunning(true);
         ghost.setRunning(true);

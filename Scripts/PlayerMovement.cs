@@ -39,7 +39,6 @@ public class PlayerMovement : MonoBehaviour {
 
         groundLevel = transform.position.y;
 
-        running = true;
     }
 
     bool isGrounded()
@@ -75,12 +74,17 @@ public class PlayerMovement : MonoBehaviour {
         rb.velocity = Vector3.zero;
     }
 
+    public bool isRunning()
+    {
+        return running;
+    }
+
     void Update()
     {
         if (!running)
             return;
 
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A))// || Input.GetKey(KeyCode.A)) ? So keys work after menu
         {
             movingLeftBtn = true;
         }

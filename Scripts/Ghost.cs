@@ -10,6 +10,9 @@ public class Ghost : MonoBehaviour
     private Rigidbody rb;
     public Transform direction;
 
+    //Time Variables
+    private float fastestTime = float.MaxValue;
+
     //Ghost Movements
     public GhostMovement movement;
     private List<TimeStamp> movements;
@@ -37,14 +40,17 @@ public class Ghost : MonoBehaviour
     public float sideMovementSpeed = 5f;
 
     // Use this for initialization
-    void Start()
+    public void intialise()
     {
         rb = GetComponent<Rigidbody>();
         movementSpeed = baseMovementSpeed;
 
         groundLevel = transform.position.y;
 
+        movements = movement.getMovements();
         running = false;
+
+        resetVelocity();
     }
 
     bool isGrounded()
@@ -85,14 +91,7 @@ public class Ghost : MonoBehaviour
 
     public void setRunning(bool running)
     {
-        if (running)
-        {
-            movements = movement.getMovements();
-        }
-
         this.running = running;
-
-        rb.velocity = Vector3.zero;
     }
 
     void Update()

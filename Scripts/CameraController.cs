@@ -16,17 +16,8 @@ public class CameraController : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void FixedUpdate ()
+	void Update ()
     {
-        
-
-        if (ghost.GetComponent<Ghost>().isRunning())
-        {
-            transform.position = ghost.transform.position + offset;
-        }
-        else
-        {
             transform.position = player.transform.position + offset;
-        }
     }
 }

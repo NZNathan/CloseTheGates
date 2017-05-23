@@ -4,16 +4,26 @@ using UnityEngine;
 
 public class GhostMovement : MonoBehaviour {
 
+    //Movement Variables
+    private float fastestTime;
+    private List<TimeStamp> fastestMovements;
     private List<TimeStamp> movements;
 
+    //Control Variables
+    private PlayerMovement player;
+
+    //Timer Offset Variables
     private float releaseTime = 0.025f;
     private float offsetTime = 0.01f;
+
     // Use this for initialization
     void Start ()
     {
+        player = GameObject.Find("Player").GetComponent<PlayerMovement>();
         movements = new List<TimeStamp>();
     }
 
+    //Returns movements and resets the list
     public List<TimeStamp> getMovements()
     {
         List<TimeStamp> moveset = new List<TimeStamp>();
@@ -22,6 +32,7 @@ public class GhostMovement : MonoBehaviour {
             moveset.Add(t);
         }
 
+        movements = new List<TimeStamp>();
         return moveset;
     }
 
@@ -36,6 +47,9 @@ public class GhostMovement : MonoBehaviour {
 	// Get unfiltered button presses (doesn't check if movement is allowed or not)
 	void Update ()
     {
+        if (!player.isRunning())
+            return;
+
         //Press Button
         if (Input.GetKeyDown(KeyCode.A))
         {
