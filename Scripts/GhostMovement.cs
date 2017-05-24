@@ -5,8 +5,7 @@ using UnityEngine;
 public class GhostMovement : MonoBehaviour {
 
     //Movement Variables
-    private float fastestTime;
-    private List<TimeStamp> fastestMovements;
+    private float runTime = 0f;
     private List<TimeStamp> movements;
 
     //Control Variables
@@ -21,6 +20,16 @@ public class GhostMovement : MonoBehaviour {
     {
         player = GameObject.Find("Player").GetComponent<PlayerMovement>();
         movements = new List<TimeStamp>();
+    }
+
+    public void setTime()
+    {
+        runTime = Timer.instance.getTime();
+    }
+
+    public float getTime()
+    {
+        return runTime;
     }
 
     //Returns movements and resets the list

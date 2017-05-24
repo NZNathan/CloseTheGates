@@ -36,7 +36,7 @@ public class RestartLevel : MonoBehaviour {
         }
     }
 
-    void restartLevel()
+    public void restartLevel()
     {
         //Reset player 
         player.transform.position = startPos;
@@ -71,9 +71,6 @@ public class RestartLevel : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            restartLevel();
-        }
+
     }
 }

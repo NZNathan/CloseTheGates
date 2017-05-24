@@ -47,7 +47,13 @@ public class Ghost : MonoBehaviour
 
         groundLevel = transform.position.y;
 
-        movements = movement.getMovements();
+        //Update the movements time
+        movement.setTime();
+        if (fastestTime > movement.getTime())
+        {
+            fastestTime = movement.getTime();
+            movements = movement.getMovements();
+        }
         running = false;
 
         resetVelocity();
