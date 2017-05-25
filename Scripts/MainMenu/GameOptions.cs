@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class GameOptions : MonoBehaviour {
 
+    //MainMenu
+    private GameObject mainMenu;
+
     //UI Components
     public Dropdown resolutionDropdown;
 
@@ -16,8 +19,8 @@ public class GameOptions : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-		
-	}
+        mainMenu = GameObject.Find("MainMenu");
+    }
 
     public void changeFullScreen()
     {
@@ -30,9 +33,9 @@ public class GameOptions : MonoBehaviour {
         Screen.SetResolution(width[resolution], height[resolution], fullscreen);
     }
 	
-	// Update is called once per frame
-	void Update ()
+	public void closeOptionsMenu()
     {
-		
-	}
+        this.gameObject.SetActive(false);
+        mainMenu.SetActive(true);
+    }
 }
