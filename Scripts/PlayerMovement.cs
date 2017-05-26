@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour {
         movementSpeed = baseMovementSpeed;
 
         groundLevel = transform.position.y;
-
+        
     }
 
     bool isGrounded()
@@ -83,12 +83,16 @@ public class PlayerMovement : MonoBehaviour {
     public void setYAngle(float yAngle)
     {
         this.yAngle = yAngle;
+        rb.velocity = direction.transform.forward * rb.velocity.magnitude;
     }
 
     void Update()
     {
+        
         if (!running)
             return;
+
+        transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(0, yAngle, 0), Time.deltaTime * 5);
 
         if (Input.GetKeyDown(KeyCode.A))// || Input.GetKey(KeyCode.A)) ? So keys work after menu
         {

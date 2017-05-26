@@ -8,12 +8,14 @@ public class RestartLevel : MonoBehaviour {
 
     private PlayerMovement player;
     private Ghost ghost;
+    private Transform playerBaesDir;
     private Vector3 startPos;
     
     // Use this for initialization
     void Start ()
     {
         player = GameObject.Find("Player").GetComponent<PlayerMovement>();
+        playerBaesDir = GameObject.Find("PlayerBaseDir").GetComponent<Transform>();
         ghost = GameObject.Find("Ghost").GetComponent<Ghost>();
 
         startPos = player.transform.position;
@@ -40,17 +42,22 @@ public class RestartLevel : MonoBehaviour {
     {
         //Reset player 
         player.transform.position = startPos;
+        player.setYAngle(0);
         player.StopAllCoroutines();
         player.resetVelocity();
 
         //Reset ghost
         ghost.gameObject.SetActive(true);
         ghost.transform.position = startPos;
+        ghost.transform.eulerAngles = new Vector3(0, 0, 0);
         ghost.StopAllCoroutines();
         ghost.intialise();
 
         player.setRunning(true);
         ghost.setRunning(true);
+
+        //Restart PlayerBaseDir
+        playerBaesDir.eulerAngles = new Vector3(0,0,0);
 
         //Reset Timer
         Timer.instance.resetTimer();
@@ -68,9 +75,4 @@ public class RestartLevel : MonoBehaviour {
         ghost.print();
     }
 
-    // Update is called once per frame
-    void Update ()
-    {
-
-    }
 }

@@ -17,7 +17,7 @@ public class Turner : MonoBehaviour {
     {
         if(other.tag == "Player")
         {
-            other.transform.eulerAngles = new Vector3(0, angle, 0);
+            //other.transform.eulerAngles = new Vector3(0, angle, 0);
             playerDir.eulerAngles = new Vector3(0, angle, 0);
             other.GetComponent<PlayerMovement>().setYAngle(angle);
         }
