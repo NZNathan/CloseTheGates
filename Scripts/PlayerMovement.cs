@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour {
     public static float groundLevel;
     private bool running = false;
     private bool reseting = false;
+    private float yAngle = 0;
     //Jump Variables
     public float jumpForce = 3f;
     private bool jumpping = false;
@@ -60,7 +61,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         movementSpeed = baseMovementSpeed;
 
-        transform.localEulerAngles = new Vector3(0, 0, 0);
+        transform.localEulerAngles = new Vector3(0, yAngle, 0);
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
 
@@ -77,6 +78,11 @@ public class PlayerMovement : MonoBehaviour {
     public bool isRunning()
     {
         return running;
+    }
+
+    public void setYAngle(float yAngle)
+    {
+        this.yAngle = yAngle;
     }
 
     void Update()
